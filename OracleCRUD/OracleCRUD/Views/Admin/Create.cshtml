@@ -1,0 +1,81 @@
+﻿@model OracleCRUD.Models.Admin.UserCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>UserCreateViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PasswordHash" class="control-label"></label>
+                <input asp-for="PasswordHash" class="form-control" />
+                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quota" class="control-label"></label>
+                <input asp-for="Quota" class="form-control" />
+                <span asp-validation-for="Quota" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TableSpaceSelected" class="control-label"></label>
+                @Html.DropDownListFor(
+                    x => x.TableSpaceSelected,
+                    new SelectList(Model.TableSpaceList, "Value", "Text"),
+                    new { @required = true, @class = "form-control custom-select" })
+                <span asp-validation-for="TableSpaceSelected" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProfileSelected" class="control-label"></label>
+                @Html.DropDownListFor(
+                    x => x.ProfileSelected,
+                    new SelectList(Model.ProfileList, "Value", "Text"),
+                    new { @required = true, @class = "form-control custom-select" })
+                <span asp-validation-for="ProfileSelected" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
