@@ -65,7 +65,7 @@ namespace BL.User
             {
                 var userFromDb = FindById(id);
 
-                if (id == user.Id && userFromDb != null )
+                if (id == user.Id && userFromDb != null)
                 {
                     AlterOracleUser(user, db, userFromDb);
 
@@ -75,21 +75,6 @@ namespace BL.User
             }
         }
 
-              public void Delete(double id)
-        {
-            using (IDbConnection db = new OracleConnection(_configuration.GetConnectionString("DefaultConnection")))
-            {
-                var userFromDb = FindById(id);
-
-                if (userFromDb != null)
-                {
-                    DropOracleUser(db, userFromDb);
-
-                    DeleteFromUsersTable(id, db);
-                }
-
-            }
-        }
         public void Delete(double id)
         {
             using (IDbConnection db = new OracleConnection(_configuration.GetConnectionString("DefaultConnection")))
@@ -105,7 +90,7 @@ namespace BL.User
 
             }
         }
-
+      
         private static void DropOracleUser(IDbConnection db, ApplicationUser userFromDb)
         {
             string sqlQuery = $@"drop user {userFromDb.Username} CASCADE";
@@ -122,7 +107,7 @@ namespace BL.User
         private static void AlterOracleUser(ApplicationUser user, IDbConnection db, ApplicationUser userFromDb)
         {
             string sqlQuery = $@"Alter USER {user.Username} 
-                        IDENTIFIED BY {user.PasswordHash} 
+                        IDENTIFIED BY ""{user.PasswordHash}"" 
                         DEFAULT TABLESPACE space300 
                         QUOTA 0 ON {userFromDb.TableSpaceName}
                         QUOTA {user.Quota} ON {user.TableSpaceName}

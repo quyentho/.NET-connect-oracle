@@ -156,7 +156,12 @@ namespace OracleCRUD.Controllers
                             return RedirectToAction(nameof(Edit), id);
                         }
 
-                        var applicationUser = _mapper.Map(userEditViewModel, userFromDb);
+                        _mapper.Map(userEditViewModel, userFromDb);
+                        if (!string.IsNullOrEmpty(userEditViewModel.PasswordHash))
+                        {
+                            userFromDb.PasswordHash = SHA512PasswordHasher.Hash(userEditViewModel.PasswordHash);
+                        }
+
 
                         _userService.Update(id, userFromDb);
 

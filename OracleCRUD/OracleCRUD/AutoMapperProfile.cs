@@ -25,9 +25,15 @@ namespace OracleCRUD
                 .ForMember(dest => dest.ProfileName, opt => opt.MapFrom(src => src.ProfileSelected))
                 .ForMember(dest => dest.TableSpaceName, opt => opt.MapFrom(src => src.TableSpaceSelected));
 
-            CreateMap<ApplicationUser, UserEditViewModel>().ReverseMap()
+            CreateMap<ApplicationUser, UserEditViewModel>()
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
+                .ForMember(dest => dest.ProfileSelected, opt => opt.MapFrom(src => src.ProfileName))
+                .ForMember(dest => dest.TableSpaceSelected, opt => opt.MapFrom(src => src.TableSpaceName))
+                .ReverseMap()
               .ForMember(dest => dest.ProfileName, opt => opt.MapFrom(src => src.ProfileSelected))
-              .ForMember(dest => dest.TableSpaceName, opt => opt.MapFrom(src => src.TableSpaceSelected));
+              .ForMember(dest => dest.TableSpaceName, opt => opt.MapFrom(src => src.TableSpaceSelected))
+              .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
+          
 
             CreateMap<BL.Profile.Profile, SelectListItem>()
                 .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Name))

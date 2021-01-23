@@ -12,7 +12,6 @@ namespace OracleCRUD.Models.Admin
         public string Username { get; set; }
         public string FirstName { get; set; }
 
-        [Required]
         [DisplayName("Password")]
         public string PasswordHash { get; set; }
 
